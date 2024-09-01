@@ -4,32 +4,43 @@ import { ParserType, SuperType } from '../../models';
 // Reason: Hard to fix bug involving schema
 
 export const availableParserInputs: Record<ParserType, string[]> = {
-  'Glob': ['glob'],
+  Glob: ['glob'],
   'Glob-regex': ['glob-regex'],
-  'Manual': ['manualManifests'],
+  Manual: ['manualManifests'],
   'Amazon Games': ['amazonGamesExeOverride', 'amazonGamesLauncherMode'],
-  'Epic': ['epicManifests', 'epicLauncherMode'],
-  'Legendary': ['legendaryExeOverride','legendaryInstalledFile','legendaryLauncherMode'],
-  'GOG Galaxy': ['galaxyExeOverride','gogLauncherMode','parseLinkedExecs','parseRegistryEntries'],
-  'itch.io': ['itchIoAppDataOverride','itchIoWindowsOnLinuxInstallDriveRedirect'],
-  'Steam': ['appTypes','onlyInstalled'],
-  'UPlay': ['uplayDir','uplayLauncherMode'],
-  'UWP': ['UWPDir', 'UWPLauncherMode'],
-  'EA Desktop': ['eaGamesDir','eaLauncherMode'],
+  Epic: ['epicManifests', 'epicLauncherMode'],
+  Legendary: [
+    'legendaryExeOverride',
+    'legendaryInstalledFile',
+    'legendaryLauncherMode',
+  ],
+  'GOG Galaxy': [
+    'galaxyExeOverride',
+    'gogLauncherMode',
+    'parseLinkedExecs',
+    'parseRegistryEntries',
+  ],
+  'itch.io': [
+    'itchIoAppDataOverride',
+    'itchIoWindowsOnLinuxInstallDriveRedirect',
+  ],
+  Steam: ['appTypes', 'onlyInstalled'],
+  UPlay: ['uplayDir', 'uplayLauncherMode'],
+  UWP: ['UWPDir', 'UWPLauncherMode'],
+  'EA Desktop': ['eaGamesDir', 'eaLauncherMode'],
   'Battle.net': ['battleExeOverride'],
-  'Non-SRM Shortcuts': []
+  'Non-SRM Shortcuts': [],
 };
 
-export const availableParsers: ParserType[] = Object.keys(availableParserInputs) as ParserType[];
+export const availableParsers: ParserType[] = Object.keys(
+  availableParserInputs,
+) as ParserType[];
 
 export const superTypes: Record<SuperType, ParserType[]> = {
-  'Manual': ['Manual'],
-  'ArtworkOnly': ['Steam', 'Non-SRM Shortcuts'],
-  'ROM': [
-    'Glob',
-    'Glob-regex'
-  ],
-  'Platform': [
+  Manual: ['Manual'],
+  ArtworkOnly: ['Steam', 'Non-SRM Shortcuts'],
+  ROM: ['Glob', 'Glob-regex'],
+  Platform: [
     'Epic',
     'Legendary',
     'GOG Galaxy',
@@ -38,13 +49,16 @@ export const superTypes: Record<SuperType, ParserType[]> = {
     'itch.io',
     'UWP',
     'EA Desktop',
-    'Battle.net'
-  ]
+    'Battle.net',
+  ],
 };
 
-export const superTypesMap: Record<ParserType, SuperType> = json.multiInvert<SuperType, ParserType>(superTypes);
+export const superTypesMap: Record<ParserType, SuperType> = json.multiInvert<
+  SuperType,
+  ParserType
+>(superTypes);
 
-export const ManualType: SuperType = 'Manual'
-export const ROMType: SuperType = 'ROM'
-export const PlatformType: SuperType = 'Platform'
-export const ArtworkOnlyType: SuperType = 'ArtworkOnly'
+export const ManualType: SuperType = 'Manual';
+export const ROMType: SuperType = 'ROM';
+export const PlatformType: SuperType = 'Platform';
+export const ArtworkOnlyType: SuperType = 'ArtworkOnly';

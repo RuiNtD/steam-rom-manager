@@ -3,9 +3,9 @@ import { CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 
 @Injectable()
 export class HrefGuard implements CanActivate {
-    constructor() { }
+  constructor() {}
 
-    canActivate() {
-        return false;
-    }
+  canActivate() {
+    return false;
+  }
 }

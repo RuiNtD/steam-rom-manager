@@ -1,4 +1,4 @@
-@import "mixins";
+@import 'mixins';
 
 :host {
   display: grid;
@@ -7,10 +7,10 @@
 
   grid-area: route;
   grid-template-areas:
-    "docs nestedForm"
-    "menu menu";
+    'docs nestedForm'
+    'menu menu';
 
-  grid-template-columns: .7fr 1fr;
+  grid-template-columns: 0.7fr 1fr;
   grid-template-rows: 1fr auto;
 
   .docs {

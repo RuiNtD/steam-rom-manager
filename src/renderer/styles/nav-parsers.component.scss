@@ -1,4 +1,4 @@
-@import "mixins";
+@import 'mixins';
 
 :host {
   display: var(--nav-parsers-display);
@@ -107,7 +107,7 @@
       &::before {
         top: 50%;
         position: absolute;
-        content: "";
+        content: '';
         width: 0.5em;
         height: 0.5em;
         background-color: var(--color-nav-link-enabled);

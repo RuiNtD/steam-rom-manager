@@ -7,26 +7,32 @@ import { Component, HostListener, Renderer2 } from '@angular/core';
   template: '',
   styleUrls: ['../styles/nav-border.component.scss'],
   host: {
-    '[class.dragging]': 'isDragging'
-  }
+    '[class.dragging]': 'isDragging',
+  },
 })
 export class NavBorderComponent {
   private isDragging = false;
   private appSettings: AppSettings;
 
-  constructor(private renderer: Renderer2, private settingsService: SettingsService) {
+  constructor(
+    private renderer: Renderer2,
+    private settingsService: SettingsService,
+  ) {
     this.appSettings = this.settingsService.getSettings();
   }
 
   ngOnInit() {
-    if(this.appSettings.theme !== 'EmuDeck') {
+    if (this.appSettings.theme !== 'EmuDeck') {
       this.setWidth(this.appSettings.navigationWidth);
     }
   }
 
   setWidth(width: number) {
-    if(width !== 0){
-      document.documentElement.style.setProperty('--nav-width', `${width < 0 ? 0 : width}px`);
+    if (width !== 0) {
+      document.documentElement.style.setProperty(
+        '--nav-width',
+        `${width < 0 ? 0 : width}px`,
+      );
     }
   }
 

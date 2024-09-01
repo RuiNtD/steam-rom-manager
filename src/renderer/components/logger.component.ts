@@ -1,4 +1,11 @@
-import { Component, AfterViewChecked, ElementRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  AfterViewChecked,
+  ElementRef,
+  ViewChild,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { LoggerService } from '../services';
 import { LogMessage, LogSettings } from '../../models';
@@ -12,10 +19,8 @@ import * as fs from 'fs-extra';
   selector: 'log',
 
   templateUrl: '../templates/logger.component.html',
-  styleUrls: [
-    '../styles/logger.component.scss'
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['../styles/logger.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoggerComponent {
   messages: Observable<LogMessage[]>;
@@ -24,8 +29,8 @@ export class LoggerComponent {
   reportID: string = undefined;
   deleteKey: string = undefined;
   useVDFs: boolean = false;
-  description: string = "";
-  discordHandle: string = "";
+  description: string = '';
+  discordHandle: string = '';
   bugForm: FormGroup;
 
   @ViewChild('messageWindow') private messageWindow: ElementRef;
@@ -33,7 +38,7 @@ export class LoggerComponent {
   constructor(
     private loggerService: LoggerService,
     private changeDetectionRef: ChangeDetectorRef,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     this.settings = this.loggerService.getLogSettings();
     this.messages = this.loggerService.getLogMessages();
@@ -43,10 +48,8 @@ export class LoggerComponent {
       description: formBuilder.control(''),
       discordHandle: formBuilder.control(''),
       useVDFs: formBuilder.control(false),
-      steamDirectory: formBuilder.control('')
-    })
-
-
+      steamDirectory: formBuilder.control(''),
+    });
   }
 
   get lang() {
@@ -56,16 +59,19 @@ export class LoggerComponent {
   ngAfterViewInit() {
     this.messages.subscribe((logMessages: LogMessage[]) => {
       this.changeDetectionRef.detectChanges();
-    })
+    });
     if (this.settings.currentScrollValue && this.messageWindow)
-      this.messageWindow.nativeElement.scrollTop = this.settings.currentScrollValue;
+      this.messageWindow.nativeElement.scrollTop =
+        this.settings.currentScrollValue;
   }
 
   ngAfterViewChecked() {
     if (this.messageWindow) {
       if (this.settings.autoscroll)
-        this.messageWindow.nativeElement.scrollTop = this.messageWindow.nativeElement.scrollHeight;
-      this.settings.currentScrollValue = this.messageWindow.nativeElement.scrollTop;
+        this.messageWindow.nativeElement.scrollTop =
+          this.messageWindow.nativeElement.scrollHeight;
+      this.settings.currentScrollValue =
+        this.messageWindow.nativeElement.scrollTop;
     }
   }
 
@@ -89,23 +95,28 @@ export class LoggerComponent {
     let discordHandle: string = this.bugForm.controls.discordHandle.value;
     let useVDFs = this.bugForm.controls.useVDFs.value;
     let steamDirectory = this.bugForm.controls.steamDirectory.value;
-    if( !description ) {
-      this.loggerService.error(`Description cannot be blank. Please describe your issue.`);
+    if (!description) {
+      this.loggerService.error(
+        `Description cannot be blank. Please describe your issue.`,
+      );
       return;
     }
-    if (useVDFs && (!steamDirectory||!fs.existsSync(steamDirectory))) {
-      this.loggerService.error(`Valid steam directory is required to upload VDFs`);
+    if (useVDFs && (!steamDirectory || !fs.existsSync(steamDirectory))) {
+      this.loggerService.error(
+        `Valid steam directory is required to upload VDFs`,
+      );
       return;
     }
-    this.loggerService.submitReport(description, useVDFs, discordHandle, steamDirectory).then(({key, deleteKey}:{key:string, deleteKey:string}) => {
-      this.reportID = key;
-      this.deleteKey = deleteKey;
-      this.changeDetectionRef.detectChanges();
-    }).catch((err)=>{
-      this.loggerService.error(`Could not upload bug report:\n ${err}`)
-    });
-
-
+    this.loggerService
+      .submitReport(description, useVDFs, discordHandle, steamDirectory)
+      .then(({ key, deleteKey }: { key: string; deleteKey: string }) => {
+        this.reportID = key;
+        this.deleteKey = deleteKey;
+        this.changeDetectionRef.detectChanges();
+      })
+      .catch((err) => {
+        this.loggerService.error(`Could not upload bug report:\n ${err}`);
+      });
   }
 
   copyReportID() {

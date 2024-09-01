@@ -17,12 +17,12 @@ import { AppRoutes } from './app.routing';
 // Unfortunately not usable for declarations right now, as the strictly typed compiler can't evaluate statically
 // Ideally one would have declarations: [...ngObjectsToArray<Components(Components), etc]
 function ngObjectsToArray<T>(importObject: T) {
-  let objectArray: (T[keyof T])[] = [];
+  let objectArray: T[keyof T][] = [];
   for (let attribute in importObject) {
     if (typeof importObject[attribute] === 'function')
       objectArray.push(importObject[attribute]);
   }
-  return objectArray as (T[keyof T])[];
+  return objectArray as T[keyof T][];
 }
 
 @NgModule({
@@ -33,7 +33,7 @@ function ngObjectsToArray<T>(importObject: T) {
     AppRoutes,
     FormsModule,
     ReactiveFormsModule,
-    ColorPickerModule
+    ColorPickerModule,
   ],
   declarations: [
     Components.AboutComponent,
@@ -91,7 +91,7 @@ function ngObjectsToArray<T>(importObject: T) {
     Pipes.RangeArrayPipe,
     Pipes.SafeHtml,
     Pipes.SafeResourceUrl,
-    Pipes.SafeStyle
+    Pipes.SafeStyle,
   ],
   providers: [].concat(
     ngObjectsToArray(Services),
@@ -100,8 +100,8 @@ function ngObjectsToArray<T>(importObject: T) {
     { provide: APP_BASE_HREF, useValue: 'SRM' },
     DatePipe,
     PercentPipe,
-    Title
+    Title,
   ),
-  bootstrap: [Components.AppComponent]
+  bootstrap: [Components.AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

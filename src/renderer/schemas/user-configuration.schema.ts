@@ -1,22 +1,32 @@
-import { onlineProviders, providerInfo } from '../../lib/image-providers/available-providers';
-import { availableParsers, availableParserInputs } from '../../lib/parsers/available-parsers';
-import { ParserType } from "../../models";
-import { cloneDeep, union } from "lodash";
+import {
+  onlineProviders,
+  providerInfo,
+} from '../../lib/image-providers/available-providers';
+import {
+  availableParsers,
+  availableParserInputs,
+} from '../../lib/parsers/available-parsers';
+import { ParserType } from '../../models';
+import { cloneDeep, union } from 'lodash';
 
 const sharedProperties = {
   properties: {
     version: { type: 'number' },
     configTitle: { type: 'string', default: '' },
     parserId: { type: 'string', default: '' },
-    steamCategories: { type: 'array', default: [] as string[], items: { type: 'string'} },
+    steamCategories: {
+      type: 'array',
+      default: [] as string[],
+      items: { type: 'string' },
+    },
     executable: {
       type: 'object',
       default: {},
-      properties:{
-        path: {type: 'string', default: ''},
-        shortcutPassthrough: {type: 'boolean', default: false },
+      properties: {
+        path: { type: 'string', default: '' },
+        shortcutPassthrough: { type: 'boolean', default: false },
         appendArgsToExecutable: { type: 'boolean', default: true },
-      }
+      },
     },
     executableArgs: { type: 'string', default: '' },
     executableModifier: { type: 'string', default: '"${exePath}"' },
@@ -27,14 +37,14 @@ const sharedProperties = {
       type: 'object',
       default: {},
       properties: {
-        specifiedAccounts: { 
-        type: 'array', 
-        default: ['Global'],
-        items: {
-          type: 'string'
-        }
+        specifiedAccounts: {
+          type: 'array',
+          default: ['Global'],
+          items: {
+            type: 'string',
+          },
+        },
       },
-      }
     },
     titleFromVariable: {
       type: 'object',
@@ -42,8 +52,8 @@ const sharedProperties = {
       properties: {
         limitToGroups: { type: 'string', default: '' },
         skipFileIfVariableWasNotFound: { type: 'boolean', default: false },
-        caseInsensitiveVariables: { type: 'boolean', default: false }
-      }
+        caseInsensitiveVariables: { type: 'boolean', default: false },
+      },
     },
     imagePool: { type: 'string', default: '${fuzzyTitle}' },
     drmProtect: { type: 'boolean', default: false },
@@ -63,10 +73,10 @@ const sharedProperties = {
         oneOf: [
           {
             type: 'string',
-            enum: onlineProviders
-          }
-        ]
-      }
+            enum: onlineProviders,
+          },
+        ],
+      },
     },
     imageProviderAPIs: {
       type: 'object',
@@ -76,83 +86,108 @@ const sharedProperties = {
           type: 'object',
           default: {},
           properties: {
-            nsfw: {type: 'boolean', default: false},
-            humor: {type: 'boolean', default: false},
+            nsfw: { type: 'boolean', default: false },
+            humor: { type: 'boolean', default: false },
             styles: {
               type: 'array',
               default: [] as string[],
               items: {
                 oneOf: [
-                  {type: 'string', enum: providerInfo.sgdb.inputs.styles.allowedValues}
-                ]
-              }
+                  {
+                    type: 'string',
+                    enum: providerInfo.sgdb.inputs.styles.allowedValues,
+                  },
+                ],
+              },
             },
             stylesHero: {
               type: 'array',
               default: [] as string[],
               items: {
                 oneOf: [
-                  {type: 'string', enum: providerInfo.sgdb.inputs.stylesHero.allowedValues}
-                ]
-              }
+                  {
+                    type: 'string',
+                    enum: providerInfo.sgdb.inputs.stylesHero.allowedValues,
+                  },
+                ],
+              },
             },
             stylesLogo: {
               type: 'array',
               default: [] as string[],
               items: {
                 oneOf: [
-                  {type: 'string', enum: providerInfo.sgdb.inputs.stylesLogo.allowedValues}
-                ]
-              }
+                  {
+                    type: 'string',
+                    enum: providerInfo.sgdb.inputs.stylesLogo.allowedValues,
+                  },
+                ],
+              },
             },
             stylesIcon: {
               type: 'array',
               default: [] as string[],
               items: {
                 oneOf: [
-                  {type: 'string', enum: providerInfo.sgdb.inputs.stylesIcon.allowedValues}
-                ]
-              }
+                  {
+                    type: 'string',
+                    enum: providerInfo.sgdb.inputs.stylesIcon.allowedValues,
+                  },
+                ],
+              },
             },
             imageMotionTypes: {
               type: 'array',
               default: ['static'],
               items: {
                 oneOf: [
-                  {type: 'string', enum: providerInfo.sgdb.inputs.imageMotionTypes.allowedValues}
-                ]
-              }
+                  {
+                    type: 'string',
+                    enum: providerInfo.sgdb.inputs.imageMotionTypes
+                      .allowedValues,
+                  },
+                ],
+              },
             },
             sizes: {
               type: 'array',
               default: [] as string[],
               items: {
                 oneOf: [
-                  {type: 'string', enum: providerInfo.sgdb.inputs.sizes.allowedValues}
-                ]
-              }
+                  {
+                    type: 'string',
+                    enum: providerInfo.sgdb.inputs.sizes.allowedValues,
+                  },
+                ],
+              },
             },
             sizesHero: {
               type: 'array',
               default: [] as string[],
               items: {
                 oneOf: [
-                  {type: 'string', enum: providerInfo.sgdb.inputs.sizesHero.allowedValues}
-                ]
-              }
+                  {
+                    type: 'string',
+                    enum: providerInfo.sgdb.inputs.sizesHero.allowedValues,
+                  },
+                ],
+              },
             },
             sizesIcon: {
               type: 'array',
               default: [] as string[],
               items: {
                 oneOf: [
-                  {type: 'string', enum: providerInfo.sgdb.inputs.sizesIcon.allowedValues}
-                ]
-              }
+                  {
+                    type: 'string',
+                    enum: providerInfo.sgdb.inputs.sizesIcon.allowedValues,
+                  },
+                ],
+              },
             },
-          }
-        }
-      }
+          },
+        },
+      },
     },
     titleModifier: { type: 'string', default: '${fuzzyTitle}' },
     fuzzyMatch: {
@@ -161,73 +196,77 @@ const sharedProperties = {
       properties: {
         removeCharacters: { type: 'boolean', default: true },
         removeBrackets: { type: 'boolean', default: true },
-        replaceDiacritics: { type: 'boolean', default: true }
-      }
+        replaceDiacritics: { type: 'boolean', default: true },
+      },
     },
-    steamInputEnabled: { type: 'string', default: '1', enum: ['0','1','2'] },
+    steamInputEnabled: { type: 'string', default: '1', enum: ['0', '1', '2'] },
     controllers: {
       type: 'object',
       default: {},
       patternProperties: {
-        "^.+$": {
+        '^.+$': {
           anyOf: [
             {
               type: 'object',
-              default: { title: "", mappingId: "", profileType: "" },
+              default: { title: '', mappingId: '', profileType: '' },
               properties: {
                 title: { type: 'string', default: '' },
                 mappingId: { type: 'string', default: '' },
-                profileType: { type: 'string', default: '' }
-              }
+                profileType: { type: 'string', default: '' },
+              },
             },
-            { type: 'null' }
-          ]
-        }
-      }
+            { type: 'null' },
+          ],
+        },
+      },
     },
     disabled: { type: 'boolean', default: false },
-  }
-}
+  },
+};
 
-let options: any[] = availableParsers.map((parserType: ParserType)=>{
+let options: any[] = availableParsers.map((parserType: ParserType) => {
   let temp = cloneDeep(sharedProperties);
-  if(availableParserInputs[parserType].length) {
+  if (availableParserInputs[parserType].length) {
     Object.assign(temp.properties, {
-      parserType: {type: 'string', default: '',enum: [parserType,'']},
+      parserType: { type: 'string', default: '', enum: [parserType, ''] },
       parserInputs: {
         type: 'object',
         default: {},
         propertyNames: {
-          enum: availableParserInputs[parserType]
+          enum: availableParserInputs[parserType],
         },
         patternProperties: {
-          "^.+$": {
+          '^.+$': {
             anyOf: [
-              { "type": ["string","boolean","null"] },
-              { "type": "array", default: [] as string[], items: { type: 'string'} },
-            ]
-          }
-        }
-      }
+              { type: ['string', 'boolean', 'null'] },
+              {
+                type: 'array',
+                default: [] as string[],
+                items: { type: 'string' },
+              },
+            ],
+          },
+        },
+      },
     });
   } else {
     Object.assign(temp.properties, {
-      parserType: {type: 'string', default: '', enum: [parserType,'']},
+      parserType: { type: 'string', default: '', enum: [parserType, ''] },
       parserInputs: {
         type: 'object',
         default: {},
         patternProperties: {
-          "^.+$": { "type": ["string", "null"] }
-        }
-      }
-    })
+          '^.+$': { type: ['string', 'null'] },
+        },
+      },
+    });
   }
-  return temp
-})
+  return temp;
+});
 
 export const userConfiguration = {
   type: 'object',
-  oneOf: options
+  oneOf: options,
 };
 
 export const defaultUserConfiguration = options[0];

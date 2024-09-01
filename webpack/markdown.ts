@@ -27,7 +27,7 @@ const re = /(\[.*?\](?::\s+|\()(?:(?!http|#)))(.+?)(?:\s.*?(?=\))|)(?:\)|\s)/g;
  * add in markdown referenced resources (pictures) to the webpack dependency tree
  */
 const extractResourcesInMarkdown: LoaderDefinitionFunction = async function (
-  source
+  source,
 ) {
   let newSource = source;
   const resolve = this.getResolve();
@@ -37,7 +37,7 @@ const extractResourcesInMarkdown: LoaderDefinitionFunction = async function (
   for (const match of Array.from(matches).reverse()) {
     const { index, 1: preString, 2: originalPath } = match;
     const newPath = await this.importModule(
-      await resolve(this.context, originalPath)
+      await resolve(this.context, originalPath),
     );
     // TS suggests that `newPath` is `any` so make sure we get a string
     if (typeof newPath !== 'string') {
@@ -47,7 +47,7 @@ const extractResourcesInMarkdown: LoaderDefinitionFunction = async function (
       newSource,
       index + preString.length,
       originalPath.length,
-      newPath
+      newPath,
     );
   }
 

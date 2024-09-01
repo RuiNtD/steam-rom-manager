@@ -1,11 +1,11 @@
 ---
 name: Feature request
 about: Suggest an improvement or added feature
-title: "[REQUEST]"
+title: '[REQUEST]'
 labels:
 assignees: ''
-
 ---
+
 <!-- Before creating a feature request, make sure you are using the latest version of Steam Rom Manager and that it isn't already implemented. -->
 
 - **Feature information**

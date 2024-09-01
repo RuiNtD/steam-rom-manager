@@ -5,43 +5,43 @@ import * as helpers from './helpers';
 let clientConfig: Configuration = {
   target: 'electron-main',
   entry: {
-    main: './main/app.ts'
+    main: './main/app.ts',
   },
   context: helpers.root('src'),
   output: {
     filename: '[name].bundle.js',
-    path: helpers.root('dist')
+    path: helpers.root('dist'),
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
   },
   module: {
     rules: [
       {
         test: /\.ts$/i,
-        use: ['ts-loader']
-      }
-    ]
+        use: ['ts-loader'],
+      },
+    ],
   },
-  node: false
+  node: false,
 };
 
 let developmentConfig: Configuration = {
   mode: 'development',
   devtool: 'source-map',
   performance: {
-    hints: false
+    hints: false,
   },
   output: {
     devtoolModuleFilenameTemplate(info: any) {
       return 'file:///' + encodeURI(info.absoluteResourcePath);
-    }
-  }
+    },
+  },
 };
 
 let productionConfig: Configuration = {
   mode: 'production',
-  bail: false
+  bail: false,
 };
 
 if (process.env.NODE_ENV === 'production') {

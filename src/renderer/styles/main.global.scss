@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  font-family: "Roboto";
+  font-family: 'Roboto';
 
   overflow: hidden;
 
@@ -43,7 +43,7 @@ body {
     height: 5em;
     margin: auto;
 
-    content: "";
+    content: '';
     animation: appLoading 0.6s linear infinite;
 
     border-top: 0.325em solid transparent;
@@ -67,7 +67,7 @@ body {
   height: 1em;
 
   border-radius: 50%;
-  font-family: "Roboto";
+  font-family: 'Roboto';
 
   line-height: initial;
 
@@ -86,7 +86,7 @@ body {
     align-items: center;
     justify-content: center;
     text-transform: lowercase;
-    content: "i";
+    content: 'i';
 
     color: var(--color-info-button-text);
     border-radius: 50%;
